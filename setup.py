@@ -1,39 +1,21 @@
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 
 def read(fname):
     path = os.path.join(os.path.dirname(__file__), fname)
-    try:
-        file = open(path, encoding='utf-8')
-    except TypeError:
-        file = open(path)
-    return file.read()
+    with open(path) as _fh:
+        return _fh.read()
 
-
-def get_install_requires():
-    install_requires = ['Django', 'six']
-
-    try:
-        import importlib
-    except ImportError:
-        install_requires.append('importlib')
-
-    try:
-        from collections import OrderedDict
-    except ImportError:
-        install_requires.append('ordereddict')
-
-    return install_requires
 
 setup(
-    name='django-3-jet',
-    version=__import__('jet').VERSION,
+    name='cifrazia-django-jet',
     description='Modern template for Django-3 admin interface with improved functionality',
     long_description=read('README.rst'),
-    author='Denis Kildishev',
-    author_email='barukimang@gmail.com',
-    url='https://github.com/Barukimang/django-jet/',
+    author='Adam Bright',
+    author_email='adam.brian.bright@gmail.com',
+    url='https://github.com/AdamBrianBright/django-jet',
     packages=find_packages(),
     license='AGPLv3',
     classifiers=[
@@ -45,16 +27,16 @@ setup(
         'Intended Audience :: System Administrators',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Environment :: Web Environment',
         'Topic :: Software Development',
         'Topic :: Software Development :: User Interfaces',
     ],
     zip_safe=False,
     include_package_data=True,
-    install_requires=get_install_requires()
+    install_requires=[
+        'Django >= 3.2, < 4.0',
+        'six >= 1.15.0, < 2.0.0',
+    ]
 )

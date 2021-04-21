@@ -1,13 +1,10 @@
 from django.contrib import admin
-from django.test import TestCase, RequestFactory
+from django.contrib.admin.utils import get_fields_from_path
+from django.test import RequestFactory, TestCase
 from django.utils.encoding import smart_text
+
 from jet.filters import RelatedFieldAjaxListFilter
 from jet.tests.models import RelatedToTestModel, TestModel
-
-try:
-    from django.contrib.admin.utils import get_fields_from_path
-except ImportError: # Django 1.6
-    from django.contrib.admin.util import get_fields_from_path
 
 
 class FiltersTestCase(TestCase):
@@ -51,4 +48,3 @@ class FiltersTestCase(TestCase):
         self.assertIsInstance(choices, list)
         self.assertEqual(len(choices), 1)
         self.assertEqual(choices[0], (initial.pk, smart_text(initial)))
-

@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-try:
-    from django.utils.encoding import python_2_unicode_compatible
-except ImportError:
-    from six import python_2_unicode_compatible
+from six import python_2_unicode_compatible
+
 
 @python_2_unicode_compatible
 class Bookmark(models.Model):
@@ -36,4 +34,3 @@ class PinnedApplication(models.Model):
 
     def __str__(self):
         return self.app_label
-

@@ -1,20 +1,14 @@
 from importlib import import_module
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
 
+from django.template.context_processors import csrf
 from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+
 from jet.dashboard import modules
 from jet.dashboard.models import UserDashboardModule
-from django.utils.translation import ugettext_lazy as _
 from jet.ordered_set import OrderedSet
-from jet.utils import get_admin_site_name, context_to_dict
-
-try:
-    from django.template.context_processors import csrf
-except ImportError:
-    from django.core.context_processors import csrf
+from jet.utils import context_to_dict, get_admin_site_name
 
 
 class Dashboard(object):
@@ -65,7 +59,7 @@ class Dashboard(object):
 
         .. code-block:: python
 
-            from django.utils.translation import ugettext_lazy as _
+            from django.utils.translation import gettext_lazy as _
             from jet.dashboard import modules
             from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 
@@ -313,5 +307,6 @@ class DashboardUrls(object):
 
     def register_urls(self, urls):
         self._urls.extend(urls)
+
 
 urls = DashboardUrls()

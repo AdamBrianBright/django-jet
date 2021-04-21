@@ -2,8 +2,9 @@
 Django JET (Django-3 compatible)
 ================================
 
-.. image:: https://travis-ci.org/geex-arts/django-jet.svg?branch=master
-    :target: https://travis-ci.org/geex-arts/django-jet
+*Fork from https://github.com/mariusionescu/django-jet*
+
+*Old readme*
 
 **Modern template for Django-3 admin interface with improved functionality**
 
