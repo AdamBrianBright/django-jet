@@ -36,6 +36,11 @@
 
 {% block extrahead %}{% endblock %}
 {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+
+<script>
+    django.gettext = window.gettext
+</script>
+
 </head>
 {% load i18n %}
 

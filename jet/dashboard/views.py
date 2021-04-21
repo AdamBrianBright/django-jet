@@ -1,19 +1,17 @@
 from django.contrib import messages
 from django.core.exceptions import ValidationError
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
-
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
-from django.views.decorators.http import require_POST, require_GET
-from jet.dashboard.forms import UpdateDashboardModulesForm, AddUserDashboardModuleForm, \
-    UpdateDashboardModuleCollapseForm, RemoveDashboardModuleForm, ResetDashboardForm
-from jet.dashboard.models import UserDashboardModule
-from jet.utils import JsonResponse, get_app_list, SuccessMessageMixin, user_is_authenticated
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_GET, require_POST
 from django.views.generic import UpdateView
-from django.utils.translation import ugettext_lazy as _
+
+from jet.dashboard.forms import (
+    AddUserDashboardModuleForm, RemoveDashboardModuleForm, ResetDashboardForm, UpdateDashboardModuleCollapseForm,
+    UpdateDashboardModulesForm)
+from jet.dashboard.models import UserDashboardModule
+from jet.utils import JsonResponse, SuccessMessageMixin, get_app_list, user_is_authenticated
 
 
 class UpdateDashboardModuleView(SuccessMessageMixin, UpdateView):
@@ -71,7 +69,8 @@ class UpdateDashboardModuleView(SuccessMessageMixin, UpdateView):
 
     def get_children_formset(self):
         if self.module.child_form:
-            return formset_factory(self.module.child_form, can_delete=True, extra=1)(**self.get_children_formset_kwargs())
+            return formset_factory(self.module.child_form, can_delete=True, extra=1)(
+                **self.get_children_formset_kwargs())
 
     def clean_children_data(self, children):
         children = list(filter(

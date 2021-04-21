@@ -1,34 +1,25 @@
 # encoding: utf-8
 import datetime
 import json
-from django import forms
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
 
+import httplib2
+from django import forms
+from django.conf import settings
 from django.forms import Widget
+from django.forms.utils import flatatt
+from django.urls import reverse
 from django.utils import formats
+from django.utils.encoding import force_text
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+from django.utils.translation import gettext_lazy as _
 from googleapiclient.discovery import build
-import httplib2
+from oauth2client.client import AccessTokenRefreshError, OAuth2Credentials, Storage, flow_from_clientsecrets
+
 from jet.dashboard.modules import DashboardModule
-from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials, AccessTokenRefreshError, Storage
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from django.utils.encoding import force_text
 
-try:
-    from django.utils.encoding import force_unicode
-except ImportError:
-    from django.utils.encoding import force_text as force_unicode
-
-try:
-    from django.forms.utils import flatatt
-except ImportError:
-    from django.forms.util import flatatt
+force_unicode = force_text
 
 JET_MODULE_GOOGLE_ANALYTICS_CLIENT_SECRETS_FILE = getattr(
     settings,
@@ -186,7 +177,8 @@ class GoogleAnalyticsSettingsForm(forms.Form):
             self.fields['counter'].choices = (('', '-- %s --' % force_text(_('none'))),)
             self.fields['counter'].choices.extend(map(lambda x: (x['id'], x['websiteUrl']), counters))
         else:
-            label = force_text(_('grant access first')) if module.credential is None else force_text(_('counters loading failed'))
+            label = force_text(_('grant access first')) if module.credential is None else force_text(
+                _('counters loading failed'))
             self.fields['counter'].choices = (('', '-- %s -- ' % label),)
 
 
@@ -280,10 +272,14 @@ class GoogleAnalyticsBase(DashboardModule):
 
     def counter_attached(self):
         if self.credential is None:
-            self.error = mark_safe(_('Please <a href="%s">attach Google account and choose Google Analytics counter</a> to start using widget') % reverse('jet-dashboard:update_module', kwargs={'pk': self.model.pk}))
+            self.error = mark_safe(
+                _('Please <a href="%s">attach Google account and choose Google Analytics counter</a> to start using widget') % reverse(
+                    'jet-dashboard:update_module', kwargs={'pk': self.model.pk}))
             return False
         elif self.counter is None:
-            self.error = mark_safe(_('Please <a href="%s">select Google Analytics counter</a> to start using widget') % reverse('jet-dashboard:update_module', kwargs={'pk': self.model.pk}))
+            self.error = mark_safe(
+                _('Please <a href="%s">select Google Analytics counter</a> to start using widget') % reverse(
+                    'jet-dashboard:update_module', kwargs={'pk': self.model.pk}))
             return False
         else:
             return True
@@ -298,13 +294,14 @@ class GoogleAnalyticsBase(DashboardModule):
                 result, exception = client.api_ga(self.counter, date1, date2, group)
 
                 if exception is not None:
-                        raise exception
+                    raise exception
 
                 return result
             except Exception as e:
                 error = _('API request failed.')
                 if isinstance(e, AccessTokenRefreshError):
-                    error += _(' Try to <a href="%s">revoke and grant access</a> again') % reverse('jet-dashboard:update_module', kwargs={'pk': self.model.pk})
+                    error += _(' Try to <a href="%s">revoke and grant access</a> again') % reverse(
+                        'jet-dashboard:update_module', kwargs={'pk': self.model.pk})
                 self.error = mark_safe(error)
 
 

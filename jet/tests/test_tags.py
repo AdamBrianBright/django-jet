@@ -1,13 +1,11 @@
 from django import forms
-try:
-    from django.core.urlresolvers import reverse
-except ImportError: # Django 1.11
-    from django.urls import reverse
-
 from django.test import TestCase
-from jet.templatetags.jet_tags import jet_select2_lookups, jet_next_object, jet_previous_object
-from jet.tests.models import TestModel, SearchableTestModel
 from django.test.client import RequestFactory
+from django.urls import reverse
+
+from jet.templatetags.jet_tags import jet_next_object, jet_previous_object, jet_select2_lookups
+from jet.tests.models import SearchableTestModel, TestModel
+
 
 class TagsTestCase(TestCase):
     def setUp(self):

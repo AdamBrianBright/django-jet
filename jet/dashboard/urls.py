@@ -1,17 +1,13 @@
 import django
 from django.conf.urls import url
-
-try:
-    from django.views.i18n import JavaScriptCatalog
-    javascript_catalog = JavaScriptCatalog.as_view()
-except ImportError:  # Django < 2.0
-    from django.views.i18n import javascript_catalog
+from django.views.i18n import JavaScriptCatalog
 
 from jet.dashboard import dashboard
-from jet.dashboard.views import update_dashboard_modules_view, add_user_dashboard_module_view, \
-    update_dashboard_module_collapse_view, remove_dashboard_module_view, UpdateDashboardModuleView, \
-    load_dashboard_module_view, reset_dashboard_view
+from jet.dashboard.views import (
+    UpdateDashboardModuleView, add_user_dashboard_module_view, load_dashboard_module_view, remove_dashboard_module_view,
+    reset_dashboard_view, update_dashboard_module_collapse_view, update_dashboard_modules_view)
 
+javascript_catalog = JavaScriptCatalog.as_view()
 app_name = 'dashboard'
 
 urlpatterns = [
@@ -62,4 +58,5 @@ urlpatterns += dashboard.urls.get_urls()
 
 if django.VERSION[:2] < (1, 8):
     from django.conf.urls import patterns
+
     urlpatterns = patterns('', *urlpatterns)

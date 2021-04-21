@@ -1,11 +1,13 @@
+import datetime
 import json
+
 from django import forms
 from django.contrib.admin.models import LogEntry
 from django.db.models import Q
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
-from jet.utils import get_app_list, LazyDateTimeEncoder, context_to_dict
-import datetime
+from django.utils.translation import gettext_lazy as _
+
+from jet.utils import LazyDateTimeEncoder, context_to_dict, get_app_list
 
 
 class DashboardModule(object):
@@ -177,7 +179,7 @@ class LinkList(DashboardModule):
 
     .. code-block:: python
 
-        from django.utils.translation import ugettext_lazy as _
+        from django.utils.translation import gettext_lazy as _
         from jet.dashboard import modules
         from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 
@@ -278,7 +280,7 @@ class AppList(DashboardModule):
 
     .. code-block:: python
 
-        from django.utils.translation import ugettext_lazy as _
+        from django.utils.translation import gettext_lazy as _
         from jet.dashboard import modules
         from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 
@@ -325,11 +327,14 @@ class AppList(DashboardModule):
         for app in app_list:
             app_name = app.get('app_label', app.get('name', ''))
             app['models'] = filter(
-                lambda model: self.models is None or ('%s.%s' % (app_name, model['object_name'])) in self.models or ('%s.*' % app_name) in self.models,
+                lambda model: self.models is None or ('%s.%s' % (app_name, model['object_name'])) in self.models or (
+                            '%s.*' % app_name) in self.models,
                 app['models']
             )
             app['models'] = filter(
-                lambda model: self.exclude is None or (('%s.%s' % (app_name, model['object_name'])) not in self.exclude and ('%s.*' % app_name) not in self.exclude),
+                lambda model: self.exclude is None or (
+                            ('%s.%s' % (app_name, model['object_name'])) not in self.exclude and (
+                                '%s.*' % app_name) not in self.exclude),
                 app['models']
             )
             app['models'] = list(app['models'])
@@ -351,7 +356,7 @@ class ModelList(DashboardModule):
 
     .. code-block:: python
 
-        from django.utils.translation import ugettext_lazy as _
+        from django.utils.translation import gettext_lazy as _
         from jet.dashboard import modules
         from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 
@@ -398,11 +403,14 @@ class ModelList(DashboardModule):
         for app in app_list:
             app_name = app.get('app_label', app.get('name', ''))
             app['models'] = filter(
-                lambda model: self.models is None or ('%s.%s' % (app_name, model['object_name'])) in self.models or ('%s.*' % app_name) in self.models,
+                lambda model: self.models is None or ('%s.%s' % (app_name, model['object_name'])) in self.models or (
+                            '%s.*' % app_name) in self.models,
                 app['models']
             )
             app['models'] = filter(
-                lambda model: self.exclude is None or (('%s.%s' % (app_name, model['object_name'])) not in self.exclude and ('%s.*' % app_name) not in self.exclude),
+                lambda model: self.exclude is None or (
+                            ('%s.%s' % (app_name, model['object_name'])) not in self.exclude and (
+                                '%s.*' % app_name) not in self.exclude),
                 app['models']
             )
             app['models'] = list(app['models'])
@@ -425,7 +433,7 @@ class RecentActions(DashboardModule):
 
     .. code-block:: python
 
-        from django.utils.translation import ugettext_lazy as _
+        from django.utils.translation import gettext_lazy as _
         from jet.dashboard import modules
         from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 
@@ -533,7 +541,7 @@ class Feed(DashboardModule):
 
     .. code-block:: python
 
-        from django.utils.translation import ugettext_lazy as _
+        from django.utils.translation import gettext_lazy as _
         from jet.dashboard import modules
         from jet.dashboard.dashboard import Dashboard, AppIndexDashboard
 
@@ -606,4 +614,3 @@ class Feed(DashboardModule):
                 'title': _('You must provide a valid feed URL'),
                 'warning': True,
             })
-
