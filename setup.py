@@ -1,36 +1,31 @@
-from setuptools import find_packages, setup
+import setuptools
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
-setup(
+setuptools.setup(
     name='cifrazia-django-jet',
-    description='Modern template for Django-3 admin interface with improved functionality',
+    description='Django-jet fork with Django@3.0+ support',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Adam Bright',
     author_email='adam.brian.bright@gmail.com',
     url='https://github.com/AdamBrianBright/django-jet',
-    packages=find_packages(),
+    packages=setuptools.find_packages(exclude=['tests', 'tests.*']),
     license='AGPLv3',
-    classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Framework :: Django',
-        'License :: Free for non-commercial use',
-        'License :: OSI Approved :: GNU Affero General Public License v3',
-        'Intended Audience :: Developers',
-        'Intended Audience :: System Administrators',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Environment :: Web Environment',
-        'Topic :: Software Development',
-        'Topic :: Software Development :: User Interfaces',
-    ],
     zip_safe=False,
     include_package_data=True,
     install_requires=[
         'Django >= 3.2, < 4.0',
         'six >= 1.15.0, < 2.0.0',
-    ]
+    ],
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
+    classifiers=[
+        'Framework :: Django',
+        'License :: Free for non-commercial use',
+        'License :: OSI Approved :: GNU Affero General Public License v3',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+    ],
 )
