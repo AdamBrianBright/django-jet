@@ -1,3 +1,3 @@
 name = 'cifrazia-django-jet'
-VERSION = '1.1.1'
-version_info = (1, 1, 1, 0)
+VERSION = '1.1.2'
+version_info = (1, 1, 2, 0)

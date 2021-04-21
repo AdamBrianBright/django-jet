@@ -12,7 +12,7 @@ def read(fname):
 setup(
     name='cifrazia-django-jet',
     description='Modern template for Django-3 admin interface with improved functionality',
-    long_description=read('README.rst'),
+    long_description=read('README.md'),
     author='Adam Bright',
     author_email='adam.brian.bright@gmail.com',
     url='https://github.com/AdamBrianBright/django-jet',
