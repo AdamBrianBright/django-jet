@@ -1,18 +1,12 @@
-import os
-
 from setuptools import find_packages, setup
 
-
-def read(fname):
-    path = os.path.join(os.path.dirname(__file__), fname)
-    with open(path) as _fh:
-        return _fh.read()
-
+with open('README.md', 'r') as fh:
+    long_description = fh.read()
 
 setup(
     name='cifrazia-django-jet',
     description='Modern template for Django-3 admin interface with improved functionality',
-    long_description=read('README.md'),
+    long_description=long_description,
     author='Adam Bright',
     author_email='adam.brian.bright@gmail.com',
     url='https://github.com/AdamBrianBright/django-jet',

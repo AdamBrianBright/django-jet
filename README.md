@@ -5,9 +5,9 @@
 ## Installation
 
 * Download and install the Django3 compatible version of Django JET:
-    - `poetry add cifrazia-django-jet`
-    - `pip install cifrazia-django-jet`
-    - `easy_install cifrazia-django-jet`
+  - `poetry add cifrazia-django-jet`
+  - `pip install cifrazia-django-jet`
+  - `easy_install cifrazia-django-jet`
 * Add 'jet' application to the INSTALLED_APPS setting of your Django project settings.py file (note it should be
   before 'django.contrib.admin'):
 
@@ -52,10 +52,10 @@ urlpatterns = [
 ```
 
 * Create database tables (chose):
-    - `python manage.py migrate jet`
-    - `python manage.py syncdb`
+  - `python manage.py migrate jet`
+  - `python manage.py syncdb`
 
 * Collect static if you are in production environment:
-    - `python manage.py collectstatic`
+  - `python manage.py collectstatic`
 
 * Clear your browser cache
